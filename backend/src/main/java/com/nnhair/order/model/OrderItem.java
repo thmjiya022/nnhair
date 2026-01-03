@@ -5,6 +5,7 @@ import com.nnhair.common.model.BaseDomain;
 import jakarta.persistence.*;
 import lombok.*;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Entity
 @Table(name = "ORDER_ITEM")
@@ -19,6 +20,8 @@ import java.math.BigDecimal;
 @DeletePermission(expression = "Principal is Admin")
 @Include(name = "orderItem")
 public class OrderItem extends BaseDomain {
+
+    private static final long serialVersionUID = 1L;
 
     @Column(name = "PRODUCT_ID", nullable = false, length = 36)
     private String productId;
@@ -53,9 +56,11 @@ public class OrderItem extends BaseDomain {
     private Order order;
 
     @PrePersist
+    @PreUpdate
     public void calculateTotal() {
         if (unitPrice != null && quantity != null) {
-            totalPrice = unitPrice.multiply(BigDecimal.valueOf(quantity));
+            totalPrice = unitPrice.multiply(BigDecimal.valueOf(quantity))
+                    .setScale(2, RoundingMode.HALF_UP);
         }
     }
 
@@ -64,7 +69,7 @@ public class OrderItem extends BaseDomain {
     public String getFormattedTotal() {
         if (totalPrice == null)
             return "R0.00";
-        return "R" + totalPrice.setScale(2).toPlainString();
+        return "R" + totalPrice.setScale(2, RoundingMode.HALF_UP).toPlainString();
     }
 
     @ComputedAttribute
@@ -72,6 +77,11 @@ public class OrderItem extends BaseDomain {
     public String getFormattedUnitPrice() {
         if (unitPrice == null)
             return "R0.00";
-        return "R" + unitPrice.setScale(2).toPlainString();
+        return "R" + unitPrice.setScale(2, RoundingMode.HALF_UP).toPlainString();
+    }
+
+    @Override
+    public String toString() {
+        return "OrderItem{id=" + id + ", productName='" + productName + "', quantity=" + quantity + "}";
     }
 }

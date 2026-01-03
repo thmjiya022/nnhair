@@ -11,6 +11,7 @@ import jakarta.persistence.*;
 import jakarta.xml.bind.annotation.*;
 import lombok.*;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -54,19 +55,19 @@ public class Order extends BaseDomain {
     private ShippingAddress shippingAddress;
 
     @Column(name = "SUBTOTAL", nullable = false, precision = 10, scale = 2)
-    private BigDecimal subtotal;
+    private BigDecimal subtotal = BigDecimal.ZERO;
 
     @Column(name = "SHIPPING_COST", nullable = false, precision = 10, scale = 2)
-    private BigDecimal shippingCost;
+    private BigDecimal shippingCost = BigDecimal.ZERO;
 
     @Column(name = "TAX_AMOUNT", precision = 10, scale = 2)
-    private BigDecimal taxAmount;
+    private BigDecimal taxAmount = BigDecimal.ZERO;
 
     @Column(name = "DISCOUNT_AMOUNT", precision = 10, scale = 2)
-    private BigDecimal discountAmount;
+    private BigDecimal discountAmount = BigDecimal.ZERO;
 
     @Column(name = "TOTAL_AMOUNT", nullable = false, precision = 10, scale = 2)
-    private BigDecimal totalAmount;
+    private BigDecimal totalAmount = BigDecimal.ZERO;
 
     @Column(name = "CURRENCY", length = 3)
     private String currency = "ZAR";
@@ -93,11 +94,13 @@ public class Order extends BaseDomain {
     private LocalDateTime updatedAt;
 
     @Exclude
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private Set<OrderItem> items = new HashSet<>();
 
     @Exclude
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private Set<OrderStatusHistory> statusHistory = new HashSet<>();
 
     @PrePersist
@@ -150,18 +153,33 @@ public class Order extends BaseDomain {
     public String getFormattedTotal() {
         if (totalAmount == null)
             return "R0.00";
-        return "R" + totalAmount.setScale(2).toPlainString();
+        return "R" + totalAmount.setScale(2, RoundingMode.HALF_UP).toPlainString();
     }
 
     private String generateOrderNumber() {
         String timestamp = String.valueOf(System.currentTimeMillis() % 1000000);
-        String random = String.valueOf((int) (Math.random() * 1000));
+        String random = String.format("%03d", (int) (Math.random() * 1000));
         return "NN-" + timestamp + "-" + random;
     }
 
+    // Helper methods for managing relationships
+    public void addItem(OrderItem item) {
+        items.add(item);
+        item.setOrder(this);
+    }
+
+    public void removeItem(OrderItem item) {
+        items.remove(item);
+        item.setOrder(null);
+    }
+
+    public void addStatusHistory(OrderStatusHistory history) {
+        statusHistory.add(history);
+        history.setOrder(this);
+    }
+
     @Override
-    @Transient
     public String toString() {
-        return "{Order [id=" + id + ", orderNumber=" + orderNumber + "]}";
+        return "Order{id=" + id + ", orderNumber='" + orderNumber + "', status=" + status + "}";
     }
 }

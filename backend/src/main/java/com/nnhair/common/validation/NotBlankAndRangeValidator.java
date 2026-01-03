@@ -1,4 +1,6 @@
-package com.nnhair.common.validation.annotation;
+package com.nnhair.common.validation;
+
+import com.nnhair.common.validation.annotation.NotBlankAndRange;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

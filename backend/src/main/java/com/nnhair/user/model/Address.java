@@ -1,4 +1,5 @@
-package com.nnhair.order.model;
+// src/main/java/com/nnhair/user/model/Address.java
+package com.nnhair.user.model;
 
 import com.yahoo.elide.annotation.ComputedAttribute;
 import jakarta.persistence.Column;
@@ -12,38 +13,32 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ShippingAddress {
+public class Address {
 
-    @Column(name = "STREET_ADDRESS", nullable = false, length = 255)
+    @Column(name = "STREET_ADDRESS", length = 255)
     private String streetAddress;
 
-    @Column(name = "CITY", nullable = false, length = 100)
+    @Column(name = "CITY", length = 100)
     private String city;
 
     @Column(name = "STATE", length = 100)
     private String state;
 
-    @Column(name = "POSTAL_CODE", nullable = false, length = 20)
+    @Column(name = "POSTAL_CODE", length = 20)
     private String postalCode;
 
     @Column(name = "COUNTRY", length = 100)
     private String country = "South Africa";
 
-    @Column(name = "APARTMENT", length = 100)
-    private String apartment;
-
-    @Column(name = "DELIVERY_INSTRUCTIONS", length = 500)
-    private String deliveryInstructions;
+    @Column(name = "IS_DEFAULT")
+    private Boolean isDefault = false;
 
     @ComputedAttribute
     @Transient
-    public String getFullAddress() {
+    public String getFormattedAddress() {
         StringBuilder address = new StringBuilder();
         if (streetAddress != null && !streetAddress.isEmpty()) {
             address.append(streetAddress);
-        }
-        if (apartment != null && !apartment.isEmpty()) {
-            address.append(", ").append(apartment);
         }
         if (city != null && !city.isEmpty()) {
             address.append("\n").append(city);
@@ -65,6 +60,7 @@ public class ShippingAddress {
     public boolean isComplete() {
         return streetAddress != null && !streetAddress.trim().isEmpty() &&
                 city != null && !city.trim().isEmpty() &&
-                postalCode != null && !postalCode.trim().isEmpty();
+                postalCode != null && !postalCode.trim().isEmpty() &&
+                country != null && !country.trim().isEmpty();
     }
 }

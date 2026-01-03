@@ -4,6 +4,8 @@ import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 import java.lang.annotation.*;
 
+import com.nnhair.common.validation.NotBlankAndRangeValidator;
+
 @Documented
 @Constraint(validatedBy = NotBlankAndRangeValidator.class)
 @Target({ ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER })

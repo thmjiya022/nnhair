@@ -1,0 +1,79 @@
+spring:
+  application:
+    name: nnhair-ecommerce
+  
+  datasource:
+    url: jdbc:mysql://localhost:3306/nnhair_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: root
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-timeout: 30000
+      maximum-pool-size: 20
+      minimum-idle: 5
+      idle-timeout: 600000
+      max-lifetime: 1800000
+  
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+        jdbc:
+          batch_size: 20
+        order_inserts: true
+        order_updates: true
+        default_batch_fetch_size: 20
+    show-sql: false
+  
+  jackson:
+    time-zone: UTC
+    serialization:
+      write-dates-as-timestamps: false
+      indent-output: true
+  
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+server:
+  port: 8080
+  servlet:
+    context-path: /
+  
+elide:
+  json-api:
+    path: /graphql
+    enabled: true
+  graphql:
+    enabled: true
+    path: /graphql
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+
+logging:
+  level:
+    com.nnhair: DEBUG
+    org.springframework.security: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    com.yahoo.elide: INFO
+
+app:
+  jwt:
+    secret: your-jwt-secret-key-change-this-in-production
+    expiration: 86400000
+  cors:
+    allowed-origins: http://localhost:3000,http://localhost:4200
+  file:
+    upload-dir: ./uploads
+    max-size: 10485760

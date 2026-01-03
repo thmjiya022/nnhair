@@ -21,6 +21,8 @@ public interface OrderRepository extends JpaRepository<Order, String> {
     // Find orders by user
     Page<Order> findByUserId(String userId, Pageable pageable);
 
+    List<Order> findByUserId(String userId);
+
     // Find orders by status
     Page<Order> findByStatus(OrderStatus status, Pageable pageable);
 
@@ -46,26 +48,44 @@ public interface OrderRepository extends JpaRepository<Order, String> {
     Page<Order> searchOrders(@Param("search") String search, Pageable pageable);
 
     // Count orders by status
-    @Query("SELECT COUNT(o) FROM Order o WHERE o.status = :status")
-    long countByStatus(@Param("status") OrderStatus status);
+    long countByStatus(OrderStatus status);
+
+    // Count orders by user and status
+    long countByUserIdAndStatus(String userId, OrderStatus status);
 
     // Get revenue statistics
-    @Query("SELECT SUM(o.totalAmount) FROM Order o WHERE o.paymentStatus = 'CAPTURED' AND o.createdAt >= :startDate")
-    BigDecimal getRevenueSince(@Param("startDate") LocalDateTime startDate);
+    @Query("SELECT COALESCE(SUM(o.totalAmount), 0) FROM Order o " +
+            "WHERE o.paymentStatus = :paymentStatus AND o.createdAt >= :startDate")
+    BigDecimal getRevenueSince(@Param("paymentStatus") PaymentStatus paymentStatus,
+            @Param("startDate") LocalDateTime startDate);
 
-    @Query("SELECT SUM(o.totalAmount) FROM Order o WHERE o.paymentStatus = 'CAPTURED'")
-    BigDecimal getTotalRevenue();
+    @Query("SELECT COALESCE(SUM(o.totalAmount), 0) FROM Order o " +
+            "WHERE o.paymentStatus = :paymentStatus")
+    BigDecimal getTotalRevenue(@Param("paymentStatus") PaymentStatus paymentStatus);
 
     // Get recent orders
-    @Query("SELECT o FROM Order o WHERE o.paymentStatus = 'CAPTURED' ORDER BY o.createdAt DESC")
-    List<Order> findRecentOrders(Pageable pageable);
+    @Query("SELECT o FROM Order o WHERE o.paymentStatus = :paymentStatus " +
+            "ORDER BY o.createdAt DESC")
+    List<Order> findRecentOrders(@Param("paymentStatus") PaymentStatus paymentStatus,
+            Pageable pageable);
 
     // Get orders needing shipment
-    @Query("SELECT o FROM Order o WHERE o.status IN ('CONFIRMED', 'PROCESSING', 'READY_FOR_SHIPPING') " +
-            "AND o.paymentStatus = 'CAPTURED' ORDER BY o.createdAt ASC")
-    List<Order> findOrdersReadyForShipping();
+    @Query("SELECT o FROM Order o WHERE o.status IN :statuses " +
+            "AND o.paymentStatus = :paymentStatus ORDER BY o.createdAt ASC")
+    List<Order> findOrdersReadyForShipping(@Param("statuses") List<OrderStatus> statuses,
+            @Param("paymentStatus") PaymentStatus paymentStatus);
 
     // Check if user has ordered a product
-    @Query("SELECT COUNT(o) > 0 FROM Order o JOIN o.items i WHERE o.userId = :userId AND i.productId = :productId")
-    boolean hasUserPurchasedProduct(@Param("userId") String userId, @Param("productId") String productId);
+    @Query("SELECT COUNT(o) > 0 FROM Order o JOIN o.items i " +
+            "WHERE o.userId = :userId AND i.productId = :productId " +
+            "AND o.paymentStatus = :paymentStatus")
+    boolean hasUserPurchasedProduct(@Param("userId") String userId,
+            @Param("productId") String productId,
+            @Param("paymentStatus") PaymentStatus paymentStatus);
+
+    // Find user's latest order
+    Optional<Order> findFirstByUserIdOrderByCreatedAtDesc(String userId);
+
+    // Count total orders by user
+    long countByUserId(String userId);
 }
