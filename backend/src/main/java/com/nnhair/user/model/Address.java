@@ -1,4 +1,3 @@
-// src/main/java/com/nnhair/user/model/Address.java
 package com.nnhair.user.model;
 
 import com.yahoo.elide.annotation.ComputedAttribute;

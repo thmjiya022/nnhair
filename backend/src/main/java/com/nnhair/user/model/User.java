@@ -1,4 +1,3 @@
-// src/main/java/com/nnhair/user/model/User.java
 package com.nnhair.user.model;
 
 import com.yahoo.elide.annotation.*;
@@ -75,9 +74,25 @@ public class User extends BaseDomain {
     private LocalDateTime accountLockedUntil;
 
     @Embedded
+    @AttributeOverrides({
+        @AttributeOverride(name="streetAddres", column = @Column(name = "BILLING_STREET")),
+        @AttributeOverride(name = "city", column = @Column(name = "BILLING_CITY")),
+        @AttributeOverride(name = "state", column = @Column(name = "BILLING_STATE")),
+        @AttributeOverride(name = "postalCode", column = @Column(name = "BILLING_POSTAL_CODE")),
+        @AttributeOverride(name = "country", column = @Column(name = "BILLING_COUNTRY")),
+        @AttributeOverride(name = "isDefault", column = @Column(name = "BILLING_IS_DEFAULT"))
+    })
     private Address billingAddress;
 
     @Embedded
+    @AttributeOverrides({
+        @AttributeOverride(name = "streetAddress", column = @Column(name = "SHIPPING_STREET")),
+        @AttributeOverride(name = "city", column = @Column(name = "SHIPPING_CITY")),
+        @AttributeOverride(name = "state", column = @Column(name = "SHIPPING_STATE")),
+        @AttributeOverride(name = "postalCode", column = @Column(name = "SHIPPING_POSTAL_CODE")),
+        @AttributeOverride(name = "country", column = @Column(name = "SHIPPING_COUNTRY")),
+        @AttributeOverride(name = "isDefault", column = @Column(name = "SHIPPING_IS_DEFAULT"))
+    })
     private Address shippingAddress;
 
     @XmlTransient
