@@ -1,20 +1,21 @@
-// src/main/java/com/nnhair/config/DataLoader.java
 package com.nnhair.config;
+
+import java.time.LocalDateTime;
+import java.util.HashSet;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.nnhair.user.model.User;
 import com.nnhair.user.model.UserRole;
 import com.nnhair.user.model.UserStatus;
 import com.nnhair.user.repository.UserRepository;
 import com.nnhair.user.repository.UserRoleRepository;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.time.LocalDateTime;
-import java.util.HashSet;
 
 @Configuration
 @RequiredArgsConstructor
@@ -24,9 +25,9 @@ public class DataLoader {
     private final PasswordEncoder passwordEncoder;
 
     @Bean
-    public CommandLineRunner initData(UserRepository userRepository,
-            UserRoleRepository userRoleRepository) {
+    public CommandLineRunner initData(UserRepository userRepository, UserRoleRepository userRoleRepository) {
         return args -> {
+            
             log.info("Loading initial data...");
 
             // Create default roles
