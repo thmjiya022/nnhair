@@ -2,10 +2,12 @@ package com.nnhair.order.model;
 
 import com.yahoo.elide.annotation.*;
 import com.nnhair.common.model.BaseDomain;
+import com.nnhair.product.model.Product;
 import jakarta.persistence.*;
 import lombok.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+
 
 @Entity
 @Table(name = "ORDER_ITEM")
@@ -24,7 +26,11 @@ public class OrderItem extends BaseDomain {
     private static final long serialVersionUID = 1L;
 
     @Column(name = "PRODUCT_ID", nullable = false, length = 36)
-    private String productId;
+    private String productId; // we want to keep this for direct access
+
+    @ManyToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name = "PRODUCT_ID", insertable=false, updatable=false)
+    private Product product;
 
     @Column(name = "PRODUCT_NAME", nullable = false, length = 255)
     private String productName;

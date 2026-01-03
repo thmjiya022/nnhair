@@ -1,11 +1,11 @@
-// src/main/java/com/nnhair/user/repository/UserRoleRepository.java
 package com.nnhair.user.repository;
 
-import com.nnhair.user.model.UserRole;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import com.nnhair.user.model.UserRole;
 
 @Repository
 public interface UserRoleRepository extends JpaRepository<UserRole, String> {
