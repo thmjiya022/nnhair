@@ -16,17 +16,18 @@ import java.math.RoundingMode;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@CreatePermission(expression = "Principal is Authenticated")
-@ReadPermission(expression = "Principal is Owner OR Principal is Admin")
-@UpdatePermission(expression = "Principal is Admin")
-@DeletePermission(expression = "Principal is Admin")
+// @CreatePermission(expression = "Principal is Authenticated")
+// @ReadPermission(expression = "Principal is Owner OR Principal is Admin")
+// @UpdatePermission(expression = "Principal is Admin")
+// @DeletePermission(expression = "Principal is Admin")
 @Include(name = "orderItem")
+@ReadPermission(expression = "true")
 public class OrderItem extends BaseDomain {
 
     private static final long serialVersionUID = 1L;
 
     @Column(name = "PRODUCT_ID", nullable = false, length = 36)
-    private String productId; // we want to keep this for direct access
+    private Long productId;
 
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name = "PRODUCT_ID", insertable=false, updatable=false)

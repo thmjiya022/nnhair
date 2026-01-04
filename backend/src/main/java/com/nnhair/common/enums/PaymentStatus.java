@@ -1,13 +1,19 @@
-package com.nnhair.order.model;
+package com.nnhair.common.enums;
 
+/**
+ * Shared PaymentStatus enum used across Order and Payment entities.
+ * Combines all statuses from both previous versions.
+ */
 public enum PaymentStatus {
     PENDING("Pending", "Awaiting payment"),
     AUTHORIZED("Authorized", "Payment authorized but not captured"),
     CAPTURED("Captured", "Payment successfully captured"),
+    PARTIALLY_CAPTURED("Partially Captured", "Partial payment captured"),
     PARTIALLY_REFUNDED("Partially Refunded", "Partial refund issued"),
     REFUNDED("Refunded", "Full refund issued"),
     FAILED("Failed", "Payment failed"),
-    CANCELLED("Cancelled", "Payment cancelled");
+    CANCELLED("Cancelled", "Payment cancelled"),
+    DISPUTED("Disputed", "Payment disputed");
 
     private final String displayName;
     private final String description;

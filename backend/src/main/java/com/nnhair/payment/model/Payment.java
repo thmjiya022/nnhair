@@ -1,4 +1,3 @@
-// src/main/java/com/nnhair/payment/model/Payment.java
 package com.nnhair.payment.model;
 
 import com.yahoo.elide.annotation.*;
@@ -7,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import com.nnhair.common.enums.PaymentMethod;
+import com.nnhair.common.enums.PaymentStatus;
 
 @Entity
 @Table(name = "PAYMENT")

@@ -1,4 +1,3 @@
-// src/main/java/com/nnhair/product/model/ProductCategory.java
 package com.nnhair.product.model;
 
 public enum ProductCategory {

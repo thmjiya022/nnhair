@@ -15,6 +15,8 @@ import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import com.nnhair.common.enums.PaymentMethod;
+import com.nnhair.common.enums.PaymentStatus;
 
 @XmlAccessorType(XmlAccessType.NONE)
 @BaseDomainValidation
