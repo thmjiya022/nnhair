@@ -62,8 +62,7 @@ public class DataLoader {
         }
     }
 
-    private void createAdminUser(UserRepository userRepository,
-            UserRoleRepository roleRepository) {
+    private void createAdminUser(UserRepository userRepository, UserRoleRepository roleRepository) {
         String adminEmail = "admin@nnhair.co.za";
 
         if (!userRepository.existsByEmail(adminEmail)) {
@@ -82,8 +81,8 @@ public class DataLoader {
                     .username("admin")
                     .email(adminEmail)
                     .passwordHash(passwordEncoder.encode("Admin@123"))
-                    .firstName("System")
-                    .lastName("Administrator")
+                    .firstName("nontando")
+                    .lastName("dludla")
                     .status(UserStatus.ACTIVE)
                     .isEmailVerified(true)
                     .isPhoneVerified(false)

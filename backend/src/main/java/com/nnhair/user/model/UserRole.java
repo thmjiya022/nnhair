@@ -1,4 +1,3 @@
-// src/main/java/com/nnhair/user/model/UserRole.java
 package com.nnhair.user.model;
 
 import com.yahoo.elide.annotation.*;
@@ -18,7 +17,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @CreatePermission(expression = "Principal is Admin")
-@ReadPermission(expression = "Principal is Admin")
+@ReadPermission(expression = "true")
 @UpdatePermission(expression = "Principal is Admin")
 @DeletePermission(expression = "Principal is Admin")
 @Include(name = "role")

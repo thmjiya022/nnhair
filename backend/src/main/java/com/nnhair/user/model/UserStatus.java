@@ -1,4 +1,3 @@
-// src/main/java/com/nnhair/user/model/UserStatus.java
 package com.nnhair.user.model;
 
 public enum UserStatus {
