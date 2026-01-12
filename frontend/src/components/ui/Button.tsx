@@ -3,10 +3,11 @@ import { clsx } from 'clsx';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
-    size?: 'sm' | 'md' | 'lg';
+    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
     isLoading?: boolean;
     leftIcon?: React.ReactNode;
     rightIcon?: React.ReactNode;
+    fullWidth?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -16,24 +17,27 @@ const Button: React.FC<ButtonProps> = ({
     isLoading = false,
     leftIcon,
     rightIcon,
+    fullWidth = false,
     className,
     disabled,
     ...props
 }) => {
-    const baseStyles = 'inline-flex items-center justify-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-600 disabled:opacity-50 disabled:cursor-not-allowed';
+    const baseStyles = 'inline-flex items-center justify-center font-medium rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
 
     const variants = {
-        primary: 'bg-yellow-600 text-black hover:bg-yellow-700',
-        secondary: 'bg-neutral-700 text-white hover:bg-neutral-600',
-        outline: 'border border-neutral-700 text-gray-300 hover:bg-neutral-800',
-        ghost: 'text-gray-300 hover:bg-neutral-800',
-        danger: 'bg-red-600 text-white hover:bg-red-700',
+        primary: 'bg-pink-600 text-white hover:bg-pink-700 focus:ring-pink-500 shadow-sm',
+        secondary: 'bg-purple-600 text-white hover:bg-purple-700 focus:ring-purple-500 shadow-sm',
+        outline: 'border border-gray-300 text-gray-700 hover:bg-gray-50 focus:ring-pink-500 bg-white',
+        ghost: 'text-gray-700 hover:bg-gray-100 focus:ring-pink-500',
+        danger: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500 shadow-sm',
     };
 
     const sizes = {
-        sm: 'px-3 py-1.5 text-sm',
+        xs: 'px-2.5 py-1.5 text-xs',
+        sm: 'px-3 py-2 text-sm',
         md: 'px-4 py-2.5 text-sm',
         lg: 'px-6 py-3 text-base',
+        xl: 'px-8 py-4 text-lg',
     };
 
     return (
@@ -42,6 +46,7 @@ const Button: React.FC<ButtonProps> = ({
                 baseStyles,
                 variants[variant],
                 sizes[size],
+                fullWidth && 'w-full',
                 className
             )}
             disabled={disabled || isLoading}

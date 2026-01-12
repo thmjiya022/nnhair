@@ -4,17 +4,18 @@ import { clsx } from 'clsx';
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label?: string;
     error?: string;
-    helperText?: string;
+    helpText?: string;
     leftIcon?: React.ReactNode;
     rightIcon?: React.ReactNode;
+    containerClassName?: string;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-    ({ label, error, helperText, leftIcon, rightIcon, className, ...props }, ref) => {
+    ({ label, error, helpText, leftIcon, rightIcon, className, containerClassName, ...props }, ref) => {
         return (
-            <div className="w-full">
+            <div className={clsx('w-full', containerClassName)}>
                 {label && (
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
                         {label}
                     </label>
                 )}
@@ -27,26 +28,26 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                     <input
                         ref={ref}
                         className={clsx(
-                            'w-full px-3 py-2.5 bg-neutral-800 border rounded-lg focus:ring-2 focus:ring-yellow-600 focus:border-transparent outline-none transition-colors text-white placeholder-gray-500',
+                            'w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 outline-none transition-colors',
                             {
                                 'pl-10': leftIcon,
                                 'pr-10': rightIcon,
-                                'border-red-500 focus:ring-red-500': error,
-                                'border-neutral-700': !error,
+                                'border-red-500 focus:border-red-500 focus:ring-red-500': error,
+                                'border-gray-300': !error,
                             },
                             className
                         )}
                         {...props}
                     />
                     {rightIcon && (
-                        <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+                        <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                             {rightIcon}
                         </div>
                     )}
                 </div>
-                {(error || helperText) && (
-                    <p className={clsx('mt-1 text-sm', error ? 'text-red-400' : 'text-gray-400')}>
-                        {error || helperText}
+                {(error || helpText) && (
+                    <p className={clsx('mt-1 text-sm', error ? 'text-red-600' : 'text-gray-500')}>
+                        {error || helpText}
                     </p>
                 )}
             </div>

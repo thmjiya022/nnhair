@@ -1,4 +1,3 @@
-// src/main/java/com/nnhair/user/hooks/CreateUserHook.java
 package com.nnhair.user.hooks;
 
 import com.yahoo.elide.annotation.LifeCycleHookBinding;

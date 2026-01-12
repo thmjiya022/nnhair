@@ -28,6 +28,7 @@ export const HairTexture = {
 
 export type HairTexture =
     typeof HairTexture[keyof typeof HairTexture];
+    
 export interface Product {
     id: number;
     name: string;
