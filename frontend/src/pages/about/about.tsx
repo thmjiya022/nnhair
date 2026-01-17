@@ -1,9 +1,9 @@
 import { Award, Heart, Sparkles, Users} from 'lucide-react';
-import Navbar from '../components/navbar/navbar';
-import Footer from '../components/footer/footer';
+import Navbar from '../../components/navbar/navbar';
+import Footer from '../../components/footer/footer';
 import thisImage from '../images/nnhairGold.jpg'
 
-const AboutPage = () => {
+const About = () => {
     const values = [
         {
             icon: <Award className="w-10 h-10" />,
@@ -125,4 +125,4 @@ const AboutPage = () => {
     );
 };
 
-export default AboutPage;
+export default About;
