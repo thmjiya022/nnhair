@@ -1,5 +1,9 @@
+import AboutPage from "./pages/about";
+
 const App = () => {
-    return <></>   
+    return <>
+    <AboutPage></AboutPage>
+    </> 
 }
 
 export default App;
