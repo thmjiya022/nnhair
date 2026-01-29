@@ -26,7 +26,7 @@ const categories: Category[] = [
     {
         name: 'Bundles',
         slug: 'bundles',
-        image: 'https://images.unsplash.com/photo-1599351430897-df5d77aec6b5?w=800&q=80',
+        image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=80',
         description: 'Premium raw hair'
     },
 ];
