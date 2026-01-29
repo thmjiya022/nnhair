@@ -183,14 +183,14 @@ const ProductDetail: React.FC = () => {
                                     <div className="flex items-center border border-neutral-700">
                                         <button
                                             onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                                            className="px-4 py-2 hover:bg-neutral-800 transition-colors"
+                                            className="px-4 py-2 text-[#d4af37] hover:bg-neutral-800 transition-colors"
                                         >
                                             −
                                         </button>
-                                        <span className="px-6 py-2 border-x border-neutral-700">{quantity}</span>
+                                        <span className="px-6 py-2 text-[#d4af37] border-x border-neutral-700">{quantity}</span>
                                         <button
                                             onClick={() => setQuantity(quantity + 1)}
-                                            className="px-4 py-2 hover:bg-neutral-800 transition-colors"
+                                            className="px-4 py-2 text-[#d4af37] hover:bg-neutral-800 transition-colors"
                                         >
                                             +
                                         </button>

@@ -170,7 +170,7 @@ const Catalog: React.FC = () => {
                                         <span className="text-xs text-[#d4af37] uppercase tracking-wider">
                                             {product.texture?.replace('-', ' ')}
                                         </span>
-                                        <h3 className="text-lg font-light group-hover:text-[#d4af37] transition-colors">
+                                        <h3 className="text-lg font-light text-[#d4af37] group-hover:text-[#d4af37] transition-colors">
                                             {product.name}
                                         </h3>
                                         <p className="text-neutral-400">R{product.price?.toLocaleString()}</p>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { createContactMessage } from '../../services/contact.service';
-import { Mail, Phone, MapPin, Send, Instagram, Facebook, Loader2 } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Loader2 } from 'lucide-react';
 import { FaTiktok } from 'react-icons/fa';
 import Footer from '../../components/footer/footer';
 import Navbar from '../../components/navbar/navbar';
@@ -97,7 +97,7 @@ const Contact: React.FC = () => {
                                 <div>
                                     <h3 className="font-light mb-2 text-white">Location</h3>
                                     <p className="text-neutral-400">
-                                        Middelburg, Mpumalanga, South Africa
+                                        Durban, KwaZulu-Natal, South Africa
                                     </p>
                                 </div>
                             </div>
@@ -112,19 +112,7 @@ const Contact: React.FC = () => {
                                     rel="noopener noreferrer"
                                     className="w-12 h-12 border border-neutral-800 rounded-full flex items-center justify-center hover:border-[#d4af37] hover:text-[#d4af37] transition-colors"
                                 >
-                                    <FaTiktok className="w-5 h-5" />
-                                </a>
-                                <a
-                                    href="#"
-                                    className="w-12 h-12 border border-neutral-800 rounded-full flex items-center justify-center hover:border-[#d4af37] hover:text-[#d4af37] transition-colors"
-                                >
-                                    <Instagram className="w-5 h-5" />
-                                </a>
-                                <a
-                                    href="#"
-                                    className="w-12 h-12 border border-neutral-800 rounded-full flex items-center justify-center hover:border-[#d4af37] hover:text-[#d4af37] transition-colors"
-                                >
-                                    <Facebook className="w-5 h-5" />
+                                    <FaTiktok className="w-5 h-5 text-[#d4af37]" />
                                 </a>
                             </div>
                         </div>
