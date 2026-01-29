@@ -171,7 +171,7 @@ const Contact: React.FC = () => {
                                         required
                                         value={formData.message}
                                         onChange={(e) => handleInputChange('message', e.target.value)}
-                                        className="mt-2 w-full px-4 py-2 bg-neutral-950 border border-neutral-700 text-white rounded min-h-[150px] focus:outline-none focus:border-[#d4af37] transition-colors"
+                                        className="mt-2 w-full px-4 py-2 bg-neutral-950 border border-neutral-700 text-white rounded min-h-37.5 focus:outline-none focus:border-[#d4af37] transition-colors"
                                     />
                                 </div>
 
