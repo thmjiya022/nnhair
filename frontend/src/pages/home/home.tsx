@@ -5,9 +5,9 @@ import HeroSection from '../../components/home/hero-section';
 import FeaturedProducts from '../../components/home/featured-products';
 import CategoryShowcase from '../../components/home/catagory-showcase';
 import Testimonials from '../../components/home/testimonials';
-import InstagramFeed from '../../components/home/instagram-feed';
 import Navbar from '../../components/navbar/navbar';
 import Footer from '../../components/footer/footer';
+import TikTokFeed from '../../components/home/tiktok-feed';
 
 const Home: React.FC = () => {
     const [products, setProducts] = useState<Product[]>([]);
@@ -32,7 +32,7 @@ const Home: React.FC = () => {
             <FeaturedProducts products={products} />
             <CategoryShowcase />
             <Testimonials />
-            <InstagramFeed />
+            <TikTokFeed />
             <Footer />
         </div>
     );
